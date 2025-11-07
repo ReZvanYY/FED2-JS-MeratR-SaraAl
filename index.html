@@ -9,13 +9,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="CSS/main.css" />
+    <link rel="stylesheet" href="src/input.css" />
     <link rel="stylesheet" href="CSS/output.css" />
 
     <title>Rizz Zone: Home</title>
   </head>
-  <body class="font-montserrat font-semibold bg-[#FFF8E7]">
-    <header class="p-4 flex justify-center items-center bg-[#489793]">
+  <body class="font-montserrat font-semibold bg-[#a28ee3] min-h-screen flex flex-col">
+    <header class="p-4 flex justify-center items-center bg-[#1DA1F2]">
       <nav class="flex items-center justify-between w-full">
         <button>
           <img
@@ -27,13 +27,13 @@
       </nav>
     </header>
     <div class="" id="toggle-menu-display-area"></div>
-    <main>
+    <main class="flex-grow">
         <!-- Search and create a new post button -->
       <div class="flex justify-center mt-2">
         <div class="">
           <input
             type="search"
-            class="rounded-full text-center border-2 p-2 bg-[#489793] focus:bg-white focus:outline-none transition-colors duration-200 appearance-none"
+            class="rounded-full text-center border-2 p-2 bg-[#1DA1F2] placeholder:text-black focus:bg-white focus:outline-none transition-colors duration-200 focus:text-gray-950 appearance-none"
             placeholder="Search"
             id="search"
             name="search" />
@@ -64,7 +64,7 @@
 
     <!-- footer -->
     <footer
-      class="border-t-2 border-[#489793] mt-8 p-4 flex items-center bg-[#489793] text-left justify-start">
+      class="border-t-2 border-[#1DA1F2] mt-8 p-4 flex items-center bg-[#1DA1F2] text-left justify-start">
       <div class="flex flex-col">
         <a href="index.html" class="text-black font-montserrat font-semibold"
           >Home</a

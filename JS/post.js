@@ -37,7 +37,7 @@ function renderPost(post) {
     displayApp.textContent = "";
 
     const article = document.createElement("article");
-    article.className = "bg-white p-4 shadow rounded mb-4";
+    article.className = "p-4 mb-6 mt-6 mr-4 ml-4 rounded-lg bg-red-50 shadow-2xl";
 
     const authorDiv = document.createElement("div");
     authorDiv.className = "flex items-center gap-2 mb-4";
@@ -118,12 +118,12 @@ function renderPost(post) {
     const commentInputField = document.createElement("input");
     commentInputField.type = "text";
     commentInputField.placeholder = "Add a comment";
-    commentInputField.className = "px-2 py-1 border rounded bg-gray-200";
+    commentInputField.className = "px-2 py-3 ml-2 rounded border-2 border-black w-[50%] text-center mt-2";
 
     const submitCommentButton = document.createElement("button");
     submitCommentButton.textContent = "COMMENT";
     submitCommentButton.className =
-        "bg-[#B56F76] border-2 border-black text-black font-montserrat font-bold rounded-md px-2 py-1 mt-4 hover:bg-[#b56472] cursor-pointer";
+        "px-2 py-3 ml-2 rounded bg-[#1DA1F2] text-white border-2 border-black mt-2 cursor-pointer";
 
     submitCommentButton.addEventListener("click", async () => {
         const commentText = commentInputField.value.trim();

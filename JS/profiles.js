@@ -81,7 +81,7 @@ function renderProfile(profile, isCurrentUser){
     const userAvatar = document.createElement("img");
     userAvatar.src = profile.avatar?.url || 'https://i.imghippo.com/files/ZyN1996XVE.png';
     userAvatar.alt = profile.avatar?.alt || 'Users profile picture.';
-    userAvatar.className = "w-24 rounded-full";
+    userAvatar.className = "w-64 rounded-full";
 
     const textContainer = document.createElement("div");
 
@@ -104,11 +104,11 @@ function renderProfile(profile, isCurrentUser){
         const avatarInput = document.createElement("input");
         avatarInput.type = "url";
         avatarInput.placeholder = "Use a public URL"
-        avatarInput.className = "mt-4 bg-gray-200 border-2 text-center";
+        avatarInput.className = "ml-2 mt-4 bg-gray-200 border-2 text-center rounded";
 
         const updateButton = document.createElement("button");
         updateButton.textContent = "Update Profile Picture";
-        updateButton.className = "px-4 mt-2 cursor-pointer rounded"
+        updateButton.className = "px-4 mt-2 border-2 ml-2 cursor-pointer rounded bg-[#1DA1F2]"
 
         updateButton.addEventListener("click", async () =>{
             const avatarUrl = avatarInput.value.trim();
@@ -192,7 +192,7 @@ function renderUserPosts(posts) {
 
     const title = document.createElement("h3");
     title.textContent = "Your Posts";
-    title.className = "text-xl font-bold mb-2 mt-2";
+    title.className = "text-xl font-bold mb-2 mt-2 ml-2";
     postsContainer.appendChild(title);
 
     if(!posts.length){
@@ -206,11 +206,11 @@ function renderUserPosts(posts) {
             postLink.className = "block cursor-pointer";
 
             const postArticle = document.createElement("article");
-            postArticle.className = "bg-white shadow rounded p-4 mb-4";
+            postArticle.className = "p-4 mb-6 mt-6 mr-4 ml-4 rounded-lg bg-red-50 shadow-2xl";
 
             const postTitle = document.createElement("h4");
             postTitle.textContent = post.title || "No title";
-            postTitle.className = "font-semibold text-lg mb-2 mt-2";
+            postTitle.className = "font-bold text-lg mb-2 mt-2";
 
             const postBodyText = document.createElement("p");
             postBodyText.textContent = post.body;

@@ -93,14 +93,14 @@ function generateUniqueId() {
 async function handleEdit(post, postContent, container) {
   const textArea = document.createElement("textarea");
   textArea.value = post.body;
-  textArea.className = "w-full border p-2 mb-2 mt-2";
+  textArea.className = "w-full p-2 mb-2 mt-2";
 
   container.replaceChild(textArea, postContent);
 
   const addSaveButton = document.createElement("button");
   addSaveButton.textContent = "SAVE";
   addSaveButton.className =
-    "bg-[#B56F76] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 hover:bg-[#b56472] cursor-pointer";
+    "bg-[#1DA1F2] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 hover:bg-[#b56472] cursor-pointer";
 
   const cancelButton = document.createElement("button");
   cancelButton.textContent = "CANCEL";
@@ -193,7 +193,7 @@ function renderPosts(postsToRender = userPosts) {
   postsToRender.forEach((post) => {
     const articleElementForPost = document.createElement("article");
     articleElementForPost.className =
-      "p-4 mb-4 mt-4 rounded-lg bg-white shadow";
+      "p-4 mb-6 mt-6 mr-4 ml-4 rounded-lg bg-red-50 shadow-2xl";
 
     const userInfoElement = document.createElement("div");
     userInfoElement.className = "flex items-center gap-2 mb-2";
@@ -272,7 +272,7 @@ function renderPosts(postsToRender = userPosts) {
       const editButton = document.createElement("button");
       editButton.textContent = "EDIT POST";
       editButton.id = "edit-button";
-      editButton.className = "px-2 py-1 bg-yellow-500 text-white rounded-xl";
+      editButton.className = "px-2 py-1 bg-[#1DA1F2] text-white rounded-xl";
       editButton.addEventListener("click", () =>
         handleEdit(post, postContent, articleElementForPost)
       );
@@ -334,11 +334,11 @@ async function renderComments(post, container){
   const commentInput = document.createElement("input");
   commentInput.type = "text";
   commentInput.placeholder = "Add a new comment";
-  commentInput.className = "px-2 py-1 ml-2 rounded"
+  commentInput.className = "px-2 py-3 ml-2 rounded border-2 border-black w-[50%] text-center mt-2";
 
   const submitButton = document.createElement("button");
   submitButton.textContent = "COMMENT";
-  submitButton.className = "px-2 py-1 ml-2 rounded";
+  submitButton.className = "px-2 py-3 ml-2 rounded bg-[#1DA1F2] text-white border-2 border-black mt-2";
 
   submitButton.addEventListener("click", async () => {
     let commentText = commentInput.value.trim();
