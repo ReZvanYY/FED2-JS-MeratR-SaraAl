@@ -81,16 +81,16 @@ function renderProfile(profile, isCurrentUser){
     const userAvatar = document.createElement("img");
     userAvatar.src = profile.avatar?.url || 'https://i.imghippo.com/files/ZyN1996XVE.png';
     userAvatar.alt = profile.avatar?.alt || 'Users profile picture.';
-    userAvatar.className = "w-24 rounded-full";
+    userAvatar.className = "w-64 rounded-full";
 
     const textContainer = document.createElement("div");
 
     const nameElement = document.createElement("h2");
-    nameElement.className = "text-xl font-bold";
+    nameElement.className = "text-4xl font-bold";
     nameElement.textContent = profile.name;
 
     const followerCount = document.createElement("p");
-    followerCount.textContent =`Followers: ${profile._count.followers}, Following: ${profile._count.following}`;
+    followerCount.textContent =`Followers: ${profile._count.followers} Following: ${profile._count.following}`;
 
     textContainer.appendChild(nameElement);
     textContainer.appendChild(followerCount);
@@ -104,11 +104,11 @@ function renderProfile(profile, isCurrentUser){
         const avatarInput = document.createElement("input");
         avatarInput.type = "url";
         avatarInput.placeholder = "Use a public URL"
-        avatarInput.className = "mt-4 bg-gray-200 border-2 text-center";
+        avatarInput.className = "ml-2 rounded border-2 rounded-xl bg-gray-100 border-black mt-4 placeholder:text-gray-600 text-center h-12";
 
         const updateButton = document.createElement("button");
         updateButton.textContent = "Update Profile Picture";
-        updateButton.className = "px-4 mt-2 cursor-pointer rounded"
+        updateButton.className = "m-2 rounded-lg bg-[#E94E77] font-semibold border-2 h-12 hover:bg-[#e293a8] cursor-pointer"
 
         updateButton.addEventListener("click", async () =>{
             const avatarUrl = avatarInput.value.trim();
@@ -188,7 +188,7 @@ function renderUserPosts(posts) {
     const displayApp = document.getElementById("display-app");
 
     const postsContainer = document.createElement("div");
-    postsContainer.className = "mt-4"
+    postsContainer.className = "p-4 m-2 rounded-lg bg-[#FFE9CC] shadow-xl"
 
     const title = document.createElement("h3");
     title.textContent = "Your Posts";
@@ -206,7 +206,7 @@ function renderUserPosts(posts) {
             postLink.className = "block cursor-pointer";
 
             const postArticle = document.createElement("article");
-            postArticle.className = "bg-white shadow rounded p-4 mb-4";
+            postArticle.className = "bg-white hover:border-b-3 hover:shadow-xl rounded p-4 mb-4";
 
             const postTitle = document.createElement("h4");
             postTitle.textContent = post.title || "No title";

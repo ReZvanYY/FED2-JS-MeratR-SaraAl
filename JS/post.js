@@ -37,7 +37,7 @@ function renderPost(post) {
     displayApp.textContent = "";
 
     const article = document.createElement("article");
-    article.className = "bg-white p-4 shadow rounded mb-4";
+    article.className = "p-4 m-8 rounded-lg bg-[#FFE9CC] shadow-xl";
 
     const authorDiv = document.createElement("div");
     authorDiv.className = "flex items-center gap-2 mb-4";
@@ -46,7 +46,7 @@ function renderPost(post) {
     avatarImg.src =
         post.author?.avatar?.url || "https://i.imghippo.com/files/ZyN1996XVE.png";
     avatarImg.alt = post.author?.name;
-    avatarImg.className = "w-10 h-10 rounded-full cursor-pointer";
+    avatarImg.className = "w-16 h-16 rounded-full cursor-pointer";
 
     avatarImg.addEventListener("click", () => {
         location.href = `/HTML/user-page.html?name=${post.author?.name}`;
@@ -70,7 +70,7 @@ function renderPost(post) {
     let likes = post._count.reactions || 0;
     const likeButton = document.createElement("button");
     likeButton.textContent = `❤️ ${likes}`;
-    likeButton.className = "px-2 py-1 border rounded-full mb-4";
+    likeButton.className = "px-2 py-1 rounded-full mb-4";
 
     likeButton.addEventListener("click", async () => {
         try {
@@ -113,17 +113,17 @@ function renderPost(post) {
         });
     }
     const inputContainer = document.createElement("div");
-    inputContainer.className = "flex gap-2 mt-2";
+    inputContainer.className = "flex flex-row";
 
     const commentInputField = document.createElement("input");
     commentInputField.type = "text";
     commentInputField.placeholder = "Add a comment";
-    commentInputField.className = "px-2 py-1 border rounded bg-gray-200";
+    commentInputField.className = "p-2 rounded border-2 rounded-xl bg-gray-100 border-black mt-4 placeholder:text-gray-600 w-[50%] text-center h-12";
 
     const submitCommentButton = document.createElement("button");
     submitCommentButton.textContent = "COMMENT";
     submitCommentButton.className =
-        "bg-[#B56F76] border-2 border-black text-black font-montserrat font-bold rounded-md px-2 py-1 mt-4 hover:bg-[#b56472] cursor-pointer";
+        "p-2 ml-2 mt-4 rounded-lg bg-[#E94E77] font-semibold border-2 h-12 hover:bg-[#e293a8] cursor-pointer";
 
     submitCommentButton.addEventListener("click", async () => {
         const commentText = commentInputField.value.trim();

@@ -64,7 +64,7 @@ function renderToggleMenu() {
     const homeButton = document.createElement("button");
     homeButton.textContent = "HOME";
     homeButton.onclick = () => {
-      window.location.href = "../index.html";
+      window.location.href = "../index.html"
     };
     menu.appendChild(homeButton);
 

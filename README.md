@@ -1,28 +1,43 @@
-FED2-JS – Social Media Mock Application
+### Social Media Mock Web App
+A responsive social media mock web application built as part of the Noroff Front-End Development (FED2) course.
+This project demonstrates modern front-end practices using JavaScript and Tailwind CSS to create a clean, modular, and fully responsive user interface.
 
-Collaboration between Sara Al and Merat R
-This project has been a joint effort between Sara Al and Merat R, with consistent collaboration from the start. Most development work has been carried out together, primarily on a shared workstation, ensuring continuous alignment and collective ownership of the solution.
-Technology Stack
+### Overview
+This web app is designed to simulate the core layout and functionality of a social media platform — featuring mock posts, user interactions, and profile layouts.
+It focuses on component-based structure, reusable styles, and maintainable front-end architecture.
 
-Tailwind CSS: Used for styling and UI components.
-👉 https://tailwindcss.com/docs/installation/tailwind-cli
+### Tech Stack
+HTML
+JavaScript
+Tailwind CSS (v4) — built using the Tailwind CLI
 
-API Integration: The application consumes a single API with multiple endpoints to enable core social media features such as viewing posts and creating content.
+### Installation & Setup
+to clone the repo, follow the link below to the PR.
 
-Key Functionality
+Install dependencies
+npm install
 
-Users are directed first to the homepage.
-To access content, a sign-in process is required:
-Open the hamburger menu
-Select Sign Up / Sign In
-Register using a mock @stud.noroff.no email (if you don’t already have one).
+Build Tailwind CSS
+npm run watch
 
-⚠️ Important Note: Before testing, ensure there are no existing usertokens or API keys stored in your browser:
+### Features
+Responsive design built entirely with Tailwind utility classes
+Component-based layout using modular JavaScript structure
+Mock social media feed with placeholder content and interactions
+Custom Tailwind configuration via local build setup
+Fast development workflow with automatic CSS rebuilds
 
-Navigate to Developer Tools → Application → LocalStorage
+### Developement notes
+Built with Tailwind CSS v4+ using the CLI via npm scripts.
+No external frameworks or UI libraries — only Tailwind and vanilla JS.
+Developed as part of the Noroff FED2: JavaScript and CSS Frameworks module.
+Focused on layout structure, responsive design, and maintainable styling.
 
-Remove any stored keys to experience the application as intended.
+### Development History
+Originally created as a JS2 course project in collaboration with another student (Sara Al), 
+this version has been updated and restyled for the FED2 CSS Frameworks assignment using Tailwind CSS without collaboration.
 
-Team Reflection
-
-This project has been an engaging and enjoyable learning experience. The team has gained valuable insights into collaborative development, API usage, and styling with Tailwind CSS. We are motivated to continue building on this foundation and further expand our knowledge throughout our journey with Noroff.
+### Author
+Merat Rezvany
+Noroff Front-End Development (FED2) Student
+merrez04067@stud.noroff.no

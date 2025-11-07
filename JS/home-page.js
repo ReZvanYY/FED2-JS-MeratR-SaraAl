@@ -193,7 +193,7 @@ function renderPosts(postsToRender = userPosts) {
   postsToRender.forEach((post) => {
     const articleElementForPost = document.createElement("article");
     articleElementForPost.className =
-      "p-4 mb-4 mt-4 rounded-lg bg-white shadow";
+      "p-4 m-8 rounded-lg bg-[#FFE9CC] shadow-xl";
 
     const userInfoElement = document.createElement("div");
     userInfoElement.className = "flex items-center gap-2 mb-2";
@@ -206,7 +206,7 @@ function renderPosts(postsToRender = userPosts) {
     userProfileImage.src =
       post.author?.avatar?.url || "https://i.imghippo.com/files/ZyN1996XVE.png";
     userProfileImage.alt = `${post.author?.name} profile picture`;
-    userProfileImage.className = "w-10 h-10 rounded-full";
+    userProfileImage.className = "w-16 h-16 rounded-full";
 
     const userName = document.createElement("p");
     userName.textContent = post.author?.name;
@@ -236,7 +236,7 @@ function renderPosts(postsToRender = userPosts) {
 
     const likeButton = document.createElement("button");
     likeButton.textContent = `❤️${likes}`;
-    likeButton.className = `mt-2 mb-2 px-2 py-1 rouded-md ${userHasLikedThisPost ? "bg-red-500 text-white" : "bg-white"}`;
+    likeButton.className = `mt-2 mb-2 px-2 py-1 rouded-md ${userHasLikedThisPost ? "bg-red-500 text-white" : "bg-transparent"}`;
 
     likeButton.addEventListener("click", async () => {
       try {
@@ -256,7 +256,7 @@ function renderPosts(postsToRender = userPosts) {
         userHasLikedThisPost = !userHasLikedThisPost;
 
         likeButton.textContent = `❤️${likes}`;
-        likeButton.className = `mt-2 mb-2 px-2 py-1 rounded-md border-2 ${userHasLikedThisPost ?  "bg-red-500" : "bg-white"}`;
+        likeButton.className = `mt-2 mb-2 px-2 py-1 rounded-md ${userHasLikedThisPost ?  "bg-transparent" : "bg-transparent"}`;
       } catch (error) {
         alert("Error reacting to post", + error.message);
         console.error(error);
@@ -272,7 +272,7 @@ function renderPosts(postsToRender = userPosts) {
       const editButton = document.createElement("button");
       editButton.textContent = "EDIT POST";
       editButton.id = "edit-button";
-      editButton.className = "px-2 py-1 bg-yellow-500 text-white rounded-xl";
+      editButton.className = "px-2 py-1 bg-yellow-500 rounded-xl border-2 border-black";
       editButton.addEventListener("click", () =>
         handleEdit(post, postContent, articleElementForPost)
       );
@@ -280,7 +280,7 @@ function renderPosts(postsToRender = userPosts) {
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "DELETE POST";
       deleteButton.id = "delete-button";
-      deleteButton.className = "px-2 py-1 bg-red-500 text-white rounded-xl";
+      deleteButton.className = "px-2 py-1 bg-red-500 text-white rounded-xl border-2 border-black";
       deleteButton.addEventListener("click", () => deletePost(post.id));
       
       interactiveButtonContainer.appendChild(editButton);
@@ -334,11 +334,11 @@ async function renderComments(post, container){
   const commentInput = document.createElement("input");
   commentInput.type = "text";
   commentInput.placeholder = "Add a new comment";
-  commentInput.className = "px-2 py-1 ml-2 rounded"
+  commentInput.className = "px-2 py-1 ml-2 rounded border-2 rounded-xl bg-gray-100 border-black mt-4 placeholder:text-gray-600 w-[50%] text-center "
 
   const submitButton = document.createElement("button");
   submitButton.textContent = "COMMENT";
-  submitButton.className = "px-2 py-1 ml-2 rounded";
+  submitButton.className = "px-2 py-1 ml-2 rounded-lg bg-[#E94E77] font-semibold border-2 hover:bg-[#e293a8] cursor-pointer";
 
   submitButton.addEventListener("click", async () => {
     let commentText = commentInput.value.trim();
