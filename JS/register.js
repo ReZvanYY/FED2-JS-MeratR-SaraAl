@@ -3,8 +3,16 @@ const form = document.getElementById("register-form");
 
 // Create divs for displaying messages
 const errorDiv = document.createElement("div");
+errorDiv.id = "register-error";
+errorDiv.setAttribute("role", "alert");
+errorDiv.setAttribute("aria-live", "assertive");
+errorDiv.setAttribute("aria-atomic", "true");
 form.appendChild(errorDiv);
 const successDiv = document.createElement("div");
+successDiv.id = "register-success";
+successDiv.setAttribute("role", "status");
+successDiv.setAttribute("aria-live", "polite");
+successDiv.setAttribute("aria-atomic", "true");
 form.appendChild(successDiv);
 
 // Event listener for form submission
@@ -61,7 +69,7 @@ form.addEventListener("submit", async function (event) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(registerData),
-      }
+      },
     );
 
     const registrationResult = await registrationResponse.json();
@@ -76,16 +84,18 @@ form.addEventListener("submit", async function (event) {
 
     // Register successful -> login to get token
     const loginResponse = await fetch("https://v2.api.noroff.dev/auth/login", {
-        method: "POST",
-        headers: {"Content-Type" : "application/json"},
-        body: JSON.stringify({
-            email: emailInput,
-            password: passwordInput,
-        }),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: emailInput,
+        password: passwordInput,
+      }),
     });
     const loginResult = await loginResponse.json();
-    if(!loginResponse.ok){
-        throw new Error(loginResult.message || "Login after registeration failed");
+    if (!loginResponse.ok) {
+      throw new Error(
+        loginResult.message || "Login after registeration failed",
+      );
     }
     const { accessToken, ...userData } = loginResult.data;
 
@@ -94,33 +104,36 @@ form.addEventListener("submit", async function (event) {
     localStorage.setItem("user", JSON.stringify(userData));
 
     // Create API key with token
-    const apiKeyResponse = await fetch("https://v2.api.noroff.dev/auth/create-api-key",{
+    const apiKeyResponse = await fetch(
+      "https://v2.api.noroff.dev/auth/create-api-key",
+      {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json" 
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
         },
-    });
-    
+      },
+    );
+
     const apiKeyResult = await apiKeyResponse.json();
-    if (!apiKeyResult.ok){
-        throw new Error(apiKeyResult.message || "Failed to generate API Key");
+    if (!apiKeyResult.ok) {
+      throw new Error(apiKeyResult.message || "Failed to generate API Key");
     }
 
     const apiKey = apiKeyResult.data.key;
     localStorage.setItem("apiKey", apiKey);
 
     // Success message
-    successDiv.textContent = "Register successful! Redirecting to Home Page"
+    successDiv.textContent = "Register successful! Redirecting to Home Page";
     successDiv.style.color = "green";
     form.reset();
 
     //Time function for redirect
-    setTimeout(() =>{
-        window.location.href = "../index.html";
+    setTimeout(() => {
+      window.location.href = "../index.html";
     }, 2000);
-    } catch (error){
-        errorDiv.textContent = error.message
-        errorDiv.style.color = "darkred";
-    }
+  } catch (error) {
+    errorDiv.textContent = error.message;
+    errorDiv.style.color = "darkred";
+  }
 });

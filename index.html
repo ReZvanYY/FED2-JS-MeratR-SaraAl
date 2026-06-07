@@ -1,98 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="src/input.css" />
-    <link rel="stylesheet" href="CSS/output.css" />
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Rizz Zone: Home</title>
-  </head>
-  <body class="font-montserrat font-semibold bg-[#a28ee3] min-h-screen flex flex-col">
-    <header class="p-4 flex justify-center items-center bg-[#1DA1F2]">
-      <nav class="flex items-center justify-between w-full">
-        <button>
-          <img
-            src="https://i.imghippo.com/files/LKqc2461NZo.png"
-            id="toggle-menu"
-            alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone"
-            class="w-14" />
-        </button>
-      </nav>
-    </header>
-    <div class="" id="toggle-menu-display-area"></div>
-    <main class="flex-grow">
-        <!-- Search and create a new post button -->
-      <div class="flex justify-center mt-2">
-        <div class="">
-          <input
-            type="search"
-            class="rounded-full text-center border-2 p-2 bg-[#1DA1F2] placeholder:text-black focus:bg-white focus:outline-none transition-colors duration-200 focus:text-gray-950 appearance-none"
-            placeholder="Search"
-            id="search"
-            name="search" />
+  <link rel="stylesheet" href="src/input.css" />
+  <link rel="stylesheet" href="CSS/output.css" />
+
+  <title>Social Media: Home</title>
+</head>
+
+<body class="font-montserrat font-semibold bg-[#a28ee3] min-h-screen flex flex-col">
+  <header class="p-4 flex justify-center items-center bg-[#1DA1F2]">
+    <nav role="navigation" aria-label="Main site navigation" class="flex items-center justify-between w-full">
+      <button aria-label="Toggle site navigation menu" aria-controls="toggled-menu" aria-expanded="false">
+        <img src="https://i.imghippo.com/files/LKqc2461NZo.png" id="toggle-menu"
+          alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone"
+          class="w-14" />
+      </button>
+    </nav>
+  </header>
+  <div class="" id="toggle-menu-display-area"></div>
+  <main class="flex-grow" aria-label="Home feed">
+    <!-- Search and create a new post button -->
+    <div class="flex justify-center mt-2" role="search" aria-label="Post search">
+      <div class="">
+        <input type="search"
+          class="rounded-full text-center border-2 p-2 bg-[#1DA1F2] placeholder:text-black focus:bg-white focus:outline-none transition-colors duration-200 focus:text-gray-950 appearance-none"
+          placeholder="Search" id="search" name="search" aria-label="Search posts" />
+      </div>
+      <button class="w-15 rounded-full" id="create-a-new-post" aria-label="Open new post form">
+        <img src="https://i.imghippo.com/files/GCjf7875el.png" alt="Create new post" class="" />
+      </button>
+    </div>
+    <!-- create a new post form and submit button -->
+    <div id="post-form-container" class="h-auto flex flex-col items-center m-auto mt-12 mb-12 justify-center "
+      aria-hidden="true">
+      <form id="post-form" class="flex flex-col" aria-label="Create a new post">
+        <div class="flex flex-col m-auto text-center">
+          <label for="title">Post Title</label>
+          <input type="text" class="p-4 rounded-4xl mb-1 mt-4 resize-none bg-gray-200" id="title" required
+            aria-required="true">
         </div>
-        <button class="w-15 rounded-full" id="create-a-new-post">
-          <img
-            src="https://i.imghippo.com/files/GCjf7875el.png"
-            alt=""
-            class="" />
-        </button>
-      </div>
-      <!-- create a new post form and submit button -->
-      <div id="post-form-container" class="h-auto flex flex-col items-center m-auto mt-12 mb-12 justify-center ">
-          <form id="post-form" class="flex flex-col">
-            <div class="flex flex-col m-auto text-center">
-              <label for="title">Post Title</label>
-                <input type="text" class="p-4 rounded-4xl mb-1 mt-4 resize-none bg-gray-200" id="title" required>
-            </div>
-              <textarea name="post-content" id="post-content" rows="6" class="md:w-150 w-60 p-4 rounded-4xl mb-1 mt-4 resize-none bg-gray-200" placeholder="Tell us your ultimate rizz">
-            </textarea>
-            <button type="submit" class="bg-[#B56F76] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 mb-4 w-[30%] m-auto hover:bg-[#b56472] cursor-pointer" id="submit-post">POST</button>
-        </form>
-      </div>
-      <!-- display area for all new and old posts -->
-      <div id="displayed-post"></div>
+        <label for="post-content">Post Content</label>
+        <textarea name="post-content" id="post-content" rows="6"
+          class="md:w-150 w-60 p-4 rounded-4xl mb-1 mt-4 resize-none bg-gray-200"
+          placeholder="Tell us your ultimate rizz" aria-label="Post content"></textarea>
+        <button type="submit"
+          class="bg-[#B56F76] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 mb-4 w-[30%] m-auto hover:bg-[#b56472] cursor-pointer"
+          id="submit-post">POST</button>
+      </form>
+    </div>
+    <!-- display area for all new and old posts -->
+    <div id="displayed-post"></div>
 
-    </main>
+  </main>
 
-    <!-- footer -->
-    <footer
-      class="border-t-2 border-[#1DA1F2] mt-8 p-4 flex items-center bg-[#1DA1F2] text-left justify-start">
-      <div class="flex flex-col">
-        <a href="index.html" class="text-black font-montserrat font-semibold"
-          >Home</a
-        >
-        <a
-          href="HTML/user-page.html"
-          class="text-black font-montserrat font-semibold"
-          >My Profile</a
-        >
-        <a
-          href="HTML/privacy-policy.html"
-          class="text-black font-montserrat font-semibold"
-          >Privacy Policy</a
-        >
-        <a
-          href="HTML/terms-of-service.html"
-          class="text-black font-montserrat font-semibold"
-          >Terms of Service</a
-        >
-        <a href="HTML/contact" class="text-black font-montserrat font-semibold"
-          >Contact Us</a
-        >
-        <p class="text-black font-montserrat font-semibold">
-          &copy; 2025 Rizz Zone. All rights reserved.
-        </p>
-      </div>
-    </footer>
-    <script src="JS/reusable.js"></script>
-    <script src="JS/home-page.js"></script>
-  </body>
+  <!-- footer -->
+  <footer class="border-t-2 border-[#1DA1F2] mt-8 p-4 flex items-center bg-[#1DA1F2] text-left justify-start">
+    <div class="flex flex-col">
+      <a href="index.html" class="text-black font-montserrat font-semibold">Home</a>
+      <a href="HTML/user-page.html" class="text-black font-montserrat font-semibold">My Profile</a>
+      <a href="HTML/privacy-policy.html" class="text-black font-montserrat font-semibold">Privacy Policy</a>
+      <a href="HTML/terms-of-service.html" class="text-black font-montserrat font-semibold">Terms of Service</a>
+      <a href="HTML/contact" class="text-black font-montserrat font-semibold">Contact Us</a>
+      <p class="text-black font-montserrat font-semibold">
+        &copy; 2025 Social Media. All rights reserved.
+      </p>
+    </div>
+  </footer>
+  <script src="JS/reusable.js"></script>
+  <script src="JS/home-page.js"></script>
+</body>
+
 </html>

@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-       
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="../CSS/main.css">
-    <link rel="stylesheet" href="../CSS/output.css">    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="../CSS/output.css">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,35 +16,45 @@
     <title>Sign in</title>
 
 </head>
+
 <body class="font-montserrat font-semibold bg-[#a28ee3] min-h-screen flex flex-col">
     <header class="p-4 flex justify-center items-center bg-[#1DA1F2]">
-        <nav class="flex items-center justify-between w-full">
-            <button>
-                <img src="https://i.imghippo.com/files/LKqc2461NZo.png" id="toggle-menu" alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone" class="w-14">
+        <nav role="navigation" aria-label="User account navigation" class="flex items-center justify-between w-full">
+            <button aria-label="Open navigation menu" aria-controls="toggle-menu-display-area" aria-expanded="false">
+                <img src="https://i.imghippo.com/files/LKqc2461NZo.png" id="toggle-menu"
+                    alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone"
+                    class="w-14">
             </button>
 
         </nav>
-    </header> 
+    </header>
     <div class="" id="toggle-menu-display-area"></div>
-        <main class="flex justify-center items-center flex-grow">
+    <main class="flex justify-center items-center grow" aria-label="Sign in form section">
         <div class="flex-col justify-center w-150 border-2 border-[#489793] rounded-lg mt-12 m-auto bg-[#1DA1F2] ">
 
-            <h1 class="text-4xl mt-4 font-montserrat font-bold tracking-wider text-center">Sign In</h1>
-            
-            <img src="https://i.imghippo.com/files/bG1226dow.png" alt="Rizz Zone logo featuring a stylized red heart and game controller merged together, with the words Rizz Zone in bold red letters below. The design conveys a playful and welcoming atmosphere, suggesting a fun and friendly environment for social interaction." class="m-auto mt-4 w-64">
+            <h1 id="sign-in-heading" class="text-4xl mt-4 font-montserrat font-bold tracking-wider text-center">Sign In
+            </h1>
+
+            <img src="https://i.imghippo.com/files/bG1226dow.png"
+                alt="Rizz Zone logo featuring a stylized red heart and game controller merged together, with the words Rizz Zone in bold red letters below. The design conveys a playful and welcoming atmosphere, suggesting a fun and friendly environment for social interaction."
+                class="m-auto mt-4 w-64">
 
             <form action="" class="flex flex-col p-4" id="login-form">
                 <div class="flex flex-col">
 
                     <label for="email" class="ml-2">Email</label>
-                    <input type="email" placeholder="Email" id="email-login" class="border-2 rounded-md p-2 m-2 bg-gray-100">
+                    <input type="email" placeholder="Email" id="email-login"
+                        class="border-2 rounded-md p-2 m-2 bg-gray-100">
 
                     <label for="password" class="ml-2">Password</label>
-                    <input type="password" placeholder="Password" id="password-login" class="border-2 rounded-md p-2 m-2 bg-gray-100">
+                    <input type="password" placeholder="Password" id="password-login"
+                        class="border-2 rounded-md p-2 m-2 bg-gray-100">
 
-                    <button class="bg-[#a28ee3] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 hover:bg-[#b19eef] cursor-pointer">SIGN IN</button>
-                </form>
-                </div>
+                    <button
+                        class="bg-[#a28ee3] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 hover:bg-[#b19eef] cursor-pointer">SIGN
+                        IN</button>
+            </form>
+        </div>
     </main>
     <footer class="border-t-2 border-[#489793] mt-19.5 p-4 flex items-center bg-[#1DA1F2] text-left justify-start">
         <div class="flex flex-col">
@@ -51,11 +63,13 @@
             <a href="privacy-policy.html" class="text-black font-montserrat font-semibold">Privacy Policy</a>
             <a href="terms-of-service.html" class="text-black font-montserrat font-semibold">Terms of Service</a>
             <a href="contact.html" class="text-black font-montserrat font-semibold">Contact Us</a>
-                <p class="text-black font-montserrat font-semibold text-center mt-3 w-full">&copy; 2025 Rizz Zone. All rights reserved.</p>
+            <p class="text-black font-montserrat font-semibold text-center mt-3 w-full">&copy; 2025 Rizz Zone. All
+                rights reserved.</p>
         </div>
 
     </footer>
     <script src="../JS/sign-in.js"></script>
     <script src="../JS/reusable.js"></script>
 </body>
+
 </html>
