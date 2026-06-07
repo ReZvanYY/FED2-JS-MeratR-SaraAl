@@ -14,19 +14,19 @@
   </head>
 <body class="font-montserrat font-semibold bg-[#FFF8E7] min-h-screen flex flex-col">
     <header class="p-4 flex justify-center items-center bg-[#489793] mb-12">
-      <nav class="flex items-center justify-between w-full">
-        <button>
+      <nav class="flex items-center justify-between w-full" role="navigation" aria-label="Main navigation">
+        <button id="toggle-menu-button" aria-expanded="false" aria-controls="toggle-menu-display-area" aria-label="Toggle main menu">
           <img
             src="https://i.imghippo.com/files/LKqc2461NZo.png"
-            id="toggle-menu"
+            id="toggle-menu-image"
             alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone"
             class="w-14" />
         </button>
       </nav>
     </header>
-    <div class="" id="toggle-menu-display-area"></div>
-    <main class="flex-grow m-8">
-      <section id="display-app"></section>
+    <div id="toggle-menu-display-area" role="region" aria-label="Main menu"></div>
+    <main class="grow m-8" role="main" aria-label="Post detail main content">
+      <section id="display-app" role="region" aria-live="polite" aria-label="Post content"></section>
     </main>
     <footer
       class="border-t-2 border-[#489793] mt-8 p-4 flex items-center bg-[#489793] text-left justify-start">

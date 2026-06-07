@@ -16,31 +16,31 @@
 </head>
 <body class="font-montserrat font-semibold bg-[#FFF8E7] min-h-screen flex flex-col">
     <header class="p-4 flex justify-center items-center bg-[#489793]">
-        <nav class="flex items-center justify-between w-full">
-            <button>
-                <img src="https://i.imghippo.com/files/LKqc2461NZo.png" id="toggle-menu" alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone" class="w-14">
+        <nav class="flex items-center justify-between w-full" role="navigation" aria-label="Main navigation">
+            <button id="toggle-menu-button" aria-expanded="false" aria-controls="toggle-menu-display-area" aria-label="Toggle main menu">
+                <img src="https://i.imghippo.com/files/LKqc2461NZo.png" id="toggle-menu-image" alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone" class="w-14">
             </button>
 
         </nav>
     </header> 
-    <div class="" id="toggle-menu-display-area"></div>
-    <main class="justify-center items-center flex-grow">
+    <div id="toggle-menu-display-area" role="region" aria-label="Main menu"></div>
+    <main class="justify-center items-center grow">
         <div class="flex-col justify-center w-150 border-2 border-[#489793] rounded-lg mt-12 m-auto bg-[#489793] ">
 
-            <h1 class="text-4xl mt-4 font-montserrat font-bold tracking-wider text-center">Sign In</h1>
+            <h1 id="login-heading" class="text-4xl mt-4 font-montserrat font-bold tracking-wider text-center">Sign In</h1>
             
             <img src="https://i.imghippo.com/files/bG1226dow.png" alt="Rizz Zone logo featuring a stylized red heart and game controller merged together, with the words Rizz Zone in bold red letters below. The design conveys a playful and welcoming atmosphere, suggesting a fun and friendly environment for social interaction." class="m-auto mt-4 w-64">
 
-            <form action="" class="flex flex-col p-4" id="login-form">
+            <form action="" class="flex flex-col p-4" id="login-form" role="form" aria-labelledby="login-heading" aria-describedby="login-error login-success">
                 <div class="flex flex-col">
 
-                    <label for="email" class="ml-2">Email</label>
-                    <input type="email" placeholder="Email" id="email-login" class="border-2 rounded-md p-2 m-2 bg-gray-100">
+                    <label for="email-login" class="ml-2">Email</label>
+                    <input type="email" placeholder="Email" id="email-login" class="border-2 rounded-md p-2 m-2 bg-gray-100" aria-required="true" aria-describedby="login-error login-success">
 
-                    <label for="password" class="ml-2">Password</label>
-                    <input type="password" placeholder="Password" id="password-login" class="border-2 rounded-md p-2 m-2 bg-gray-100">
+                    <label for="password-login" class="ml-2">Password</label>
+                    <input type="password" placeholder="Password" id="password-login" class="border-2 rounded-md p-2 m-2 bg-gray-100" aria-required="true" aria-describedby="login-error login-success">
 
-                    <button class="bg-[#B56F76] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 hover:bg-[#b56472] cursor-pointer">SIGN IN</button>
+                    <button type="submit" class="bg-[#B56F76] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 hover:bg-[#b56472] cursor-pointer" aria-label="Sign in to your account">SIGN IN</button>
                 </form>
                 </div>
     </main>

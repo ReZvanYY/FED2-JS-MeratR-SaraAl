@@ -15,18 +15,18 @@
   </head>
 <body class="font-montserrat font-semibold bg-[#FFF8E7] min-h-screen flex flex-col">
     <header class="p-4 flex justify-center items-center bg-[#489793]">
-      <nav class="flex items-center justify-between w-full">
-        <button>
+      <nav class="flex items-center justify-between w-full" role="navigation" aria-label="Main navigation">
+        <button id="toggle-menu-button" aria-expanded="false" aria-controls="toggle-menu-display-area" aria-label="Toggle main menu">
           <img
             src="https://i.imghippo.com/files/LKqc2461NZo.png"
-            id="toggle-menu"
+            id="toggle-menu-image"
             alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone"
             class="w-14" />
         </button>
       </nav>
     </header>
-    <div class="" id="toggle-menu-display-area"></div>
-    <main class="flex-grow">
+    <div id="toggle-menu-display-area" role="region" aria-label="Main menu"></div>
+    <main class="grow">
         <!-- Search and create a new post button -->
       <div class="flex justify-center mt-2">
         <div class="">
@@ -35,13 +35,13 @@
             class="rounded-full text-center border-2 p-2 bg-[#489793] focus:bg-white focus:outline-none transition-colors duration-200 appearance-none"
             placeholder="Search"
             id="search"
-            name="search" />
+            name="search"
+            aria-label="Search posts" />
         </div>
-        <button class="w-15 rounded-full" id="create-a-new-post">
+        <button class="w-15 rounded-full" id="create-a-new-post" aria-label="Create a new post">
           <img
             src="https://i.imghippo.com/files/GCjf7875el.png"
-            alt=""
-            class="" />
+            alt="Create a new post"/>
         </button>
       </div>
       <!-- create a new post form and submit button -->
@@ -51,14 +51,14 @@
               <label for="title">Post Title</label>
                 <input type="text" class="p-4 rounded-4xl mb-1 mt-4 resize-none bg-gray-200 placeholder:text-center border-3" id="title" required placeholder="Post title">
             </div>
-            <label for="textarea" class="ml-5">Post Body</label>
+            <label for="post-content" class="ml-5">Post Body</label>
               <textarea name="post-content" id="post-content" rows="6" class="md:w-150 w-60 p-4 rounded-4xl mb-1 mt-4 resize-none bg-gray-200 border-3" placeholder="Tell us your ultimate rizz">
             </textarea>
             <button type="submit" class="bg-[#B56F76] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 mb-4 w-[30%] m-auto hover:bg-[#b56472] cursor-pointer" id="submit-post">POST</button>
         </form>
       </div>
       <!-- display area for all new and old posts -->
-      <div id="displayed-post"></div>
+      <div id="displayed-post" role="region" aria-live="polite" aria-label="Posts"></div>
 
     </main>
 
