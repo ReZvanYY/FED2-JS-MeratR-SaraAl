@@ -1,4 +1,3 @@
-
 if (!token) {
   throw new Error("unable to find the token, user not signed in.");
 }
@@ -7,7 +6,8 @@ if (!token) {
 const currentUser = JSON.parse(localStorage.getItem("user"));
 
 //API URL
-const postsApiUrl = "https://v2.api.noroff.dev/social/posts?_author=true&_comments=true";
+const postsApiUrl =
+  "https://v2.api.noroff.dev/social/posts?_author=true&_comments=true";
 const apiKeyStorage = "apiKey";
 
 // the function that checks if the user is signed in or not
@@ -35,7 +35,7 @@ async function getApiKey() {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     if (!apiKeyResponse.ok) throw new Error("Failed to generate API Key");
 
@@ -85,6 +85,8 @@ const postContentInput = document.getElementById("post-content");
 
 const postFormContainer = document.getElementById("post-form-container");
 postFormContainer.classList.add("hidden");
+postFormContainer.setAttribute("aria-hidden", "true");
+newPostButton.setAttribute("aria-expanded", "false");
 
 // Generation of a unique ID for each post, by taking the timestamp + a random number
 function generateUniqueId() {
@@ -93,14 +95,14 @@ function generateUniqueId() {
 async function handleEdit(post, postContent, container) {
   const textArea = document.createElement("textarea");
   textArea.value = post.body;
-  textArea.className = "w-full border p-2 mb-2 mt-2";
+  textArea.className = "w-full p-2 mb-2 mt-2";
 
   container.replaceChild(textArea, postContent);
 
   const addSaveButton = document.createElement("button");
   addSaveButton.textContent = "SAVE";
   addSaveButton.className =
-    "bg-[#B56F76] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 hover:bg-[#b56472] cursor-pointer";
+    "bg-[#1DA1F2] border-2 border-black text-black font-montserrat font-bold rounded-md p-2 mt-4 hover:bg-[#b56472] cursor-pointer";
 
   const cancelButton = document.createElement("button");
   cancelButton.textContent = "CANCEL";
@@ -133,12 +135,11 @@ async function handleEdit(post, postContent, container) {
             title: post.title,
             body: updateBodyContent,
           }),
-        }
+        },
       );
 
       if (!response.ok) throw new Error("Failed to update post");
       fetchPosts();
-
     } catch (error) {
       alert("Error updating post: " + error.message);
       console.error(error);
@@ -154,20 +155,23 @@ async function handleEdit(post, postContent, container) {
 async function deletePost(postId) {
   if (
     !confirm(
-      "Do you wish to delete this post? This post will be permantly deleted."
+      "Do you wish to delete this post? This post will be permantly deleted.",
     )
   )
     return;
 
   try {
     const apiKey = await getApiKey();
-    const response = await fetch(`https://v2.api.noroff.dev/social/posts/${postId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "X-Noroff-API-Key": apiKey,
+    const response = await fetch(
+      `https://v2.api.noroff.dev/social/posts/${postId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "X-Noroff-API-Key": apiKey,
+        },
       },
-    });
+    );
 
     if (!response.ok) throw new Error("Failed to delete the post!");
     fetchPosts();
@@ -193,7 +197,8 @@ function renderPosts(postsToRender = userPosts) {
   postsToRender.forEach((post) => {
     const articleElementForPost = document.createElement("article");
     articleElementForPost.className =
-      "p-4 mb-4 mt-4 rounded-lg bg-white shadow";
+      "p-4 mb-6 mt-6 mr-4 ml-4 rounded-lg bg-red-50 shadow-2xl";
+    articleElementForPost.setAttribute("role", "article");
 
     const userInfoElement = document.createElement("div");
     userInfoElement.className = "flex items-center gap-2 mb-2";
@@ -218,8 +223,10 @@ function renderPosts(postsToRender = userPosts) {
     userInfoElement.appendChild(profileLink);
 
     const postTitle = document.createElement("h3");
+    postTitle.id = `post-title-${post.id}`;
     postTitle.textContent = post.title || "Quick Post";
     postTitle.className = "font-bold text-xl mb-4";
+    articleElementForPost.setAttribute("aria-labelledby", postTitle.id);
 
     const postContent = document.createElement("p");
     postContent.textContent = post.body;
@@ -229,42 +236,57 @@ function renderPosts(postsToRender = userPosts) {
     link.href = `/HTML/post-specific-page.html?id=${post.id}`;
     link.textContent = "See Post";
     link.className = "text-blue-600 hover:underline";
+    link.setAttribute(
+      "aria-label",
+      `View full post titled ${post.title || "Quick Post"}`,
+    );
 
-    let userHasLikedThisPost = post.reactions?.some((reaction) => reaction.symbol === "❤️" && reaction.count > 0);
+    let userHasLikedThisPost = post.reactions?.some(
+      (reaction) => reaction.symbol === "❤️" && reaction.count > 0,
+    );
 
     let likes = post._count.reactions || 0;
 
     const likeButton = document.createElement("button");
     likeButton.textContent = `❤️${likes}`;
-    likeButton.className = `mt-2 mb-2 px-2 py-1 rouded-md ${userHasLikedThisPost ? "bg-red-500 text-white" : "bg-white"}`;
+    likeButton.className = `mt-2 mb-2 px-2 py-1 rounded-md ${userHasLikedThisPost ? "bg-red-500 text-white" : "bg-white"}`;
+    likeButton.setAttribute("aria-pressed", String(userHasLikedThisPost));
+    likeButton.setAttribute(
+      "aria-label",
+      `Like post titled ${post.title || "Quick Post"}`,
+    );
 
     likeButton.addEventListener("click", async () => {
       try {
         const apiKey = await getApiKey();
-        const response = await fetch(`https://v2.api.noroff.dev/social/posts/${post.id}/react/❤️`, {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "X-Noroff-API-Key": apiKey,
+        const response = await fetch(
+          `https://v2.api.noroff.dev/social/posts/${post.id}/react/❤️`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "X-Noroff-API-Key": apiKey,
+            },
           },
-        });
+        );
         if (!response.ok) throw new Error("Failed to react to post");
 
         const result = await response.json();
-        likes = result.data.reactions.find(r => r.symbol === "❤️")?.count || 0;
+        likes =
+          result.data.reactions.find((r) => r.symbol === "❤️")?.count || 0;
 
         userHasLikedThisPost = !userHasLikedThisPost;
 
         likeButton.textContent = `❤️${likes}`;
-        likeButton.className = `mt-2 mb-2 px-2 py-1 rounded-md border-2 ${userHasLikedThisPost ?  "bg-red-500" : "bg-white"}`;
+        likeButton.className = `mt-2 mb-2 px-2 py-1 rounded-md border-2 ${userHasLikedThisPost ? "bg-red-500" : "bg-white"}`;
+        likeButton.setAttribute("aria-pressed", String(userHasLikedThisPost));
       } catch (error) {
-        alert("Error reacting to post", + error.message);
+        alert("Error reacting to post", +error.message);
         console.error(error);
       }
     });
     articleElementForPost.appendChild(likeButton);
-    
-    
+
     if (post.author?.name === currentUser.name) {
       const interactiveButtonContainer = document.createElement("div");
       interactiveButtonContainer.className = "flex gap-2 mt-4 mb-4";
@@ -272,17 +294,25 @@ function renderPosts(postsToRender = userPosts) {
       const editButton = document.createElement("button");
       editButton.textContent = "EDIT POST";
       editButton.id = "edit-button";
-      editButton.className = "px-2 py-1 bg-yellow-500 text-white rounded-xl";
-      editButton.addEventListener("click", () =>
-        handleEdit(post, postContent, articleElementForPost)
+      editButton.className = "px-2 py-1 bg-[#1DA1F2] text-white rounded-xl";
+      editButton.setAttribute(
+        "aria-label",
+        `Edit post titled ${post.title || "Untitled post"}`,
       );
-      
+      editButton.addEventListener("click", () =>
+        handleEdit(post, postContent, articleElementForPost),
+      );
+
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "DELETE POST";
       deleteButton.id = "delete-button";
       deleteButton.className = "px-2 py-1 bg-red-500 text-white rounded-xl";
+      deleteButton.setAttribute(
+        "aria-label",
+        `Delete post titled ${post.title || "Untitled post"}`,
+      );
       deleteButton.addEventListener("click", () => deletePost(post.id));
-      
+
       interactiveButtonContainer.appendChild(editButton);
       interactiveButtonContainer.appendChild(deleteButton);
 
@@ -293,9 +323,9 @@ function renderPosts(postsToRender = userPosts) {
     articleElementForPost.appendChild(postTitle);
     articleElementForPost.appendChild(postContent);
     articleElementForPost.appendChild(link);
-    
+
     displayArea.appendChild(articleElementForPost);
-    
+
     const commentSection = document.createElement("div");
     articleElementForPost.appendChild(commentSection);
     renderComments(post, commentSection);
@@ -305,23 +335,29 @@ function renderPosts(postsToRender = userPosts) {
 newPostButton.addEventListener("click", () => {
   if (postFormContainer.classList.contains("hidden")) {
     postFormContainer.classList.remove("hidden");
+    postFormContainer.setAttribute("aria-hidden", "false");
+    newPostButton.setAttribute("aria-expanded", "true");
   } else {
     postFormContainer.classList.add("hidden");
+    postFormContainer.setAttribute("aria-hidden", "true");
+    newPostButton.setAttribute("aria-expanded", "false");
   }
 });
 
 // Render Comments
-async function renderComments(post, container){
+async function renderComments(post, container) {
   container.innerHTML = "";
 
   const commentList = document.createElement("div");
   commentList.className = "mt-2";
+  commentList.setAttribute("role", "list");
 
-  if(post.comments?.length > 0){
+  if (post.comments?.length > 0) {
     post.comments.forEach((comment) => {
       const commentItem = document.createElement("p");
       commentItem.textContent = `${comment.author?.name || comment.owner} : ${comment.body}`;
-      commentItem.className = "border-b py-1"
+      commentItem.className = "border-b py-1";
+      commentItem.setAttribute("role", "listitem");
       commentList.appendChild(commentItem);
     });
   } else {
@@ -334,16 +370,20 @@ async function renderComments(post, container){
   const commentInput = document.createElement("input");
   commentInput.type = "text";
   commentInput.placeholder = "Add a new comment";
-  commentInput.className = "px-2 py-1 ml-2 rounded"
+  commentInput.className =
+    "px-2 py-3 ml-2 rounded border-2 border-black w-[50%] text-center mt-2";
+  commentInput.setAttribute("aria-label", "Add a new comment");
 
   const submitButton = document.createElement("button");
   submitButton.textContent = "COMMENT";
-  submitButton.className = "px-2 py-1 ml-2 rounded";
+  submitButton.className =
+    "px-2 py-3 ml-2 rounded bg-[#1DA1F2] text-white border-2 border-black mt-2";
+  submitButton.setAttribute("aria-label", "Submit comment");
 
   submitButton.addEventListener("click", async () => {
     let commentText = commentInput.value.trim();
-    if(!commentText) return;
-    
+    if (!commentText) return;
+
     try {
       const apiKey = await getApiKey();
       const response = await fetch(
@@ -356,17 +396,17 @@ async function renderComments(post, container){
             "X-Noroff-API-Key": apiKey,
           },
           body: JSON.stringify({ body: commentText }),
-        });
-      
-        if(!response.ok) throw new Error("Unable to post comment");
+        },
+      );
 
-        commentInput.value = "";
-        fetchPosts();
-      }catch(error){
-        alert("Error commenting: ", + error.message);
-        console.error(error);
-      }
-   
+      if (!response.ok) throw new Error("Unable to post comment");
+
+      commentInput.value = "";
+      fetchPosts();
+    } catch (error) {
+      alert("Error commenting: ", +error.message);
+      console.error(error);
+    }
   });
   container.appendChild(commentList);
   container.appendChild(commentInput);
@@ -415,7 +455,7 @@ searchInput.addEventListener("input", (e) => {
   const filteredPosts = userPosts.filter(
     (post) =>
       post.body.toLowerCase().includes(searchQuery) ||
-      post.author?.name.toLowerCase().includes(searchQuery)
+      post.author?.name.toLowerCase().includes(searchQuery),
   );
   renderPosts(filteredPosts);
 });
