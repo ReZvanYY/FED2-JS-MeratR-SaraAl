@@ -5,28 +5,28 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-     <link rel="stylesheet" href="../CSS/main.css">
-        <link rel="stylesheet" href="../CSS/output.css">    
+      
+    <link rel="stylesheet" href="../dist/output.css">
     
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     </head>
-<body>
+<body class="font-montserrat font-semibold bg-[#FFF8E7] min-h-screen flex flex-col">
     <header class="p-4 flex justify-center items-center bg-[#489793]">
-        <nav class="flex items-center justify-between w-full">
-          <button>
+        <nav class="flex items-center justify-between w-full" role="navigation" aria-label="Main navigation">
+          <button id="toggle-menu-button" aria-expanded="false" aria-controls="toggle-menu-display-area" aria-label="Toggle main menu">
             <img
               src="https://i.imghippo.com/files/LKqc2461NZo.png"
-              id="toggle-menu"
+              id="toggle-menu-image"
               alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone"
-              class="w-14" />
+              class="w-16" />
           </button>
         </nav>
       </header>
-      <div class="" id="toggle-menu-display-area"></div>
-      <main>
-        <section id="display-app">
+      <div id="toggle-menu-display-area" role="region" aria-label="Main menu"></div>
+      <main class="grow" role="main" aria-label="User profile main content">
+        <section id="display-app" role="region" aria-live="polite" aria-label="Profile content">
 
         </section>
       </main>

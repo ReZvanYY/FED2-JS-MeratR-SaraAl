@@ -1,36 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-       
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-     <link rel="stylesheet" href="../CSS/main.css">
-        <link rel="stylesheet" href="../CSS/output.css">    
-    
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    </head>
-<body>
-    <header class="p-4 flex justify-center items-center bg-[#489793]">
-        <nav class="flex items-center justify-between w-full">
-          <button>
-            <img
-              src="https://i.imghippo.com/files/LKqc2461NZo.png"
-              id="toggle-menu"
-              alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone"
-              class="w-14" />
-          </button>
-        </nav>
-      </header>
-      <div class="" id="toggle-menu-display-area"></div>
-      <main>
-        <section id="display-app">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet" />
 
-        </section>
-      </main>
-        <footer
+    <link rel="stylesheet" href="../dist/output.css" />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+<body class="font-montserrat font-semibold bg-[#FFF8E7] min-h-screen flex flex-col">
+    <header class="p-4 flex justify-center items-center bg-[#489793] mb-12">
+      <nav class="flex items-center justify-between w-full" role="navigation" aria-label="Main navigation">
+        <button id="toggle-menu-button" aria-expanded="false" aria-controls="toggle-menu-display-area" aria-label="Toggle main menu">
+          <img
+            src="https://i.imghippo.com/files/LKqc2461NZo.png"
+            id="toggle-menu-image"
+            alt="three horizontal black bars with rounded ends forming a hamburger menu icon, displayed on a plain black background, neutral tone"
+            class="w-14" />
+        </button>
+      </nav>
+    </header>
+    <div id="toggle-menu-display-area" role="region" aria-label="Main menu"></div>
+    <main class="grow m-8" role="main" aria-label="Post detail main content">
+      <section id="display-app" role="region" aria-live="polite" aria-label="Post content"></section>
+    </main>
+    <footer
       class="border-t-2 border-[#489793] mt-8 p-4 flex items-center bg-[#489793] text-left justify-start">
       <div class="flex flex-col">
         <a href="../index.html" class="text-black font-montserrat font-semibold"
@@ -51,7 +49,9 @@
           class="text-black font-montserrat font-semibold"
           >Terms of Service</a
         >
-        <a href="../HTML/contact" class="text-black font-montserrat font-semibold"
+        <a
+          href="../HTML/contact"
+          class="text-black font-montserrat font-semibold"
           >Contact Us</a
         >
         <p class="text-black font-montserrat font-semibold">
@@ -59,7 +59,7 @@
         </p>
       </div>
     </footer>
-<script src="../JS/reusable.js"></script>
-<script src="../JS/post.js"></script>
-</body>
+    <script src="../JS/reusable.js"></script>
+    <script src="../JS/post.js"></script>
+  </body>
 </html>

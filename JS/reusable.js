@@ -13,7 +13,8 @@ function signOut() {
 
 const nav = document.querySelector("nav");
 const headerMenu = document.getElementById("toggle-menu-display-area");
-const toggleMenuButtonImage = document.getElementById("toggle-menu");
+const toggleMenuButtonImage = document.getElementById("toggle-menu-image");
+const toggleMenuButton = document.getElementById("toggle-menu-button");
 
 //generic photo used by default
 const genericProfileImg = "https://i.imghippo.com/files/ZyN1996XVE.png";
@@ -46,6 +47,8 @@ const menu = document.createElement("div");
 menu.id = "toggled-menu";
 menu.classList = "flex flex-col w-full p-4"
 menu.style.display = "none"; // Initially hidden
+menu.setAttribute("role", "menu");
+menu.setAttribute("aria-hidden", "true");
 headerMenu.appendChild(menu);
 
 let menuVisible = false;
@@ -64,7 +67,7 @@ function renderToggleMenu() {
     const homeButton = document.createElement("button");
     homeButton.textContent = "HOME";
     homeButton.onclick = () => {
-      window.location.href = "../index.html";
+      window.location.href = "../index.html"
     };
     menu.appendChild(homeButton);
 
@@ -104,17 +107,20 @@ function renderToggleMenu() {
 }
 
 // Toggle menu on button click
-const toggleMenuButton = document.getElementById("toggle-menu");
 
 toggleMenuButton.addEventListener("click", (e) => {
     e.stopPropagation(); // Prevent event from bubbling up to document
 
     if(menuVisible) {
         menu.style.display = "none";
+        menu.setAttribute("aria-hidden", "true");
+        toggleMenuButton.setAttribute("aria-expanded", "false");
         toggleMenuButtonImage.src = "https://i.imghippo.com/files/LKqc2461NZo.png"; // hamburger icon
     } else {
         renderToggleMenu();
         menu.style.display = "flex";
+        menu.setAttribute("aria-hidden", "false");
+        toggleMenuButton.setAttribute("aria-expanded", "true");
         toggleMenuButtonImage.src = "https://i.imghippo.com/files/qC2915DQI.png"; // close icon
     }
     menuVisible = !menuVisible;

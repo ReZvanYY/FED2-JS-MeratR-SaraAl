@@ -4,6 +4,15 @@ const loginForm = document.getElementById('login-form');
 const logInErrorDiv = document.createElement('div');
 const logInSuccessDiv = document.createElement('div');
 
+logInErrorDiv.id = 'login-error';
+logInErrorDiv.setAttribute('role', 'alert');
+logInErrorDiv.setAttribute('aria-live', 'assertive');
+logInErrorDiv.setAttribute('aria-atomic', 'true');
+logInSuccessDiv.id = 'login-success';
+logInSuccessDiv.setAttribute('role', 'status');
+logInSuccessDiv.setAttribute('aria-live', 'polite');
+logInSuccessDiv.setAttribute('aria-atomic', 'true');
+
 loginForm.appendChild(logInErrorDiv);
 loginForm.appendChild(logInSuccessDiv);
 
@@ -16,13 +25,22 @@ loginForm.addEventListener('submit', async function (event){
     logInSuccessDiv.textContent = '';
 
     // Get and validate input values
-    const emailInput = document.getElementById('email-login').value.trim().toLowerCase();
-    const passwordInput = document.getElementById('password-login').value;
+    const emailField = document.getElementById('email-login');
+    const passwordField = document.getElementById('password-login');
+    const emailInput = emailField.value.trim().toLowerCase();
+    const passwordInput = passwordField.value;
+
+    emailField.removeAttribute('aria-invalid');
+    passwordField.removeAttribute('aria-invalid');
+    logInErrorDiv.textContent = '';
+    logInSuccessDiv.textContent = '';
 
     // Basic validation
     if (!emailInput || !passwordInput){
         logInErrorDiv.textContent = 'Please fill in all fields';
         logInErrorDiv.style.color = 'darkred';
+        if (!emailInput) emailField.setAttribute('aria-invalid', 'true');
+        if (!passwordInput) passwordField.setAttribute('aria-invalid', 'true');
         return;
     }
  
@@ -40,6 +58,7 @@ loginForm.addEventListener('submit', async function (event){
         if (!loginResponse.ok){
             logInErrorDiv.textContent = loginResult.message || 'Login failed';
             logInErrorDiv.style.color = 'darkred';
+            emailField.setAttribute('aria-invalid', 'true');
             return;
         }
         const { accessToken, ...userData } = loginResult.data;
@@ -66,6 +85,8 @@ loginForm.addEventListener('submit', async function (event){
         // Successful login
         logInSuccessDiv.textContent = 'Login successful! Redirecting...';
         logInSuccessDiv.style.color = 'green';
+        emailField.removeAttribute('aria-invalid');
+        passwordField.removeAttribute('aria-invalid');
         loginForm.reset();
 
         // Redirect after a short delay

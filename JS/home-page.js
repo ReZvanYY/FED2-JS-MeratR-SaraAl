@@ -80,11 +80,14 @@ const postTitleInput = document.getElementById("title");
 const searchInput = document.getElementById("search");
 const displayArea = document.getElementById("displayed-post");
 const newPostButton = document.getElementById("create-a-new-post");
+newPostButton.setAttribute("aria-expanded", "false");
+newPostButton.setAttribute("aria-controls", "post-form-container");
 const postForm = document.getElementById("post-form");
 const postContentInput = document.getElementById("post-content");
 
 const postFormContainer = document.getElementById("post-form-container");
 postFormContainer.classList.add("hidden");
+postFormContainer.setAttribute("aria-hidden", "true");
 
 // Generation of a unique ID for each post, by taking the timestamp + a random number
 function generateUniqueId() {
@@ -193,20 +196,25 @@ function renderPosts(postsToRender = userPosts) {
   postsToRender.forEach((post) => {
     const articleElementForPost = document.createElement("article");
     articleElementForPost.className =
-      "p-4 mb-4 mt-4 rounded-lg bg-white shadow";
+      "p-4 m-8 rounded-lg bg-[#FFE9CC] shadow-xl";
+    articleElementForPost.setAttribute("role", "article");
+    articleElementForPost.setAttribute("aria-label", `Post by ${post.author?.name || "unknown author"}`);
 
     const userInfoElement = document.createElement("div");
     userInfoElement.className = "flex items-center gap-2 mb-2";
+    userInfoElement.setAttribute("role", "group");
+    userInfoElement.setAttribute("aria-label", "Post author information");
 
     const profileLink = document.createElement("a");
     profileLink.href = `/HTML/user-page.html?name=${post.author?.name}`;
     profileLink.className = "flex items-center gap-2 hover:underline";
+    profileLink.setAttribute("aria-label", `View profile of ${post.author?.name || "author"}`);
 
     const userProfileImage = document.createElement("img");
     userProfileImage.src =
       post.author?.avatar?.url || "https://i.imghippo.com/files/ZyN1996XVE.png";
     userProfileImage.alt = `${post.author?.name} profile picture`;
-    userProfileImage.className = "w-10 h-10 rounded-full";
+    userProfileImage.className = "w-16 h-16 rounded-full";
 
     const userName = document.createElement("p");
     userName.textContent = post.author?.name;
@@ -218,25 +226,33 @@ function renderPosts(postsToRender = userPosts) {
     userInfoElement.appendChild(profileLink);
 
     const postTitle = document.createElement("h3");
+    postTitle.id = `post-title-${post.id}`;
     postTitle.textContent = post.title || "Quick Post";
     postTitle.className = "font-bold text-xl mb-4";
+
+    articleElementForPost.setAttribute("aria-labelledby", postTitle.id);
 
     const postContent = document.createElement("p");
     postContent.textContent = post.body;
     postContent.className = "mb-2";
+    postContent.setAttribute("aria-label", "Post body");
 
     const link = document.createElement("a");
     link.href = `/HTML/post-specific-page.html?id=${post.id}`;
     link.textContent = "See Post";
     link.className = "text-blue-600 hover:underline";
+    link.setAttribute("aria-label", `View full post titled ${post.title || "Quick Post"}`);
 
     let userHasLikedThisPost = post.reactions?.some((reaction) => reaction.symbol === "❤️" && reaction.count > 0);
 
     let likes = post._count.reactions || 0;
 
     const likeButton = document.createElement("button");
+    likeButton.type = "button";
     likeButton.textContent = `❤️${likes}`;
-    likeButton.className = `mt-2 mb-2 px-2 py-1 rouded-md ${userHasLikedThisPost ? "bg-red-500 text-white" : "bg-white"}`;
+    likeButton.className = `mt-2 mb-2 px-2 py-1 rouded-md ${userHasLikedThisPost ? "bg-red-500 text-white" : "bg-transparent"}`;
+    likeButton.setAttribute("aria-label", `Like this post. ${likes} likes.`);
+    likeButton.setAttribute("aria-pressed", String(userHasLikedThisPost));
 
     likeButton.addEventListener("click", async () => {
       try {
@@ -256,7 +272,9 @@ function renderPosts(postsToRender = userPosts) {
         userHasLikedThisPost = !userHasLikedThisPost;
 
         likeButton.textContent = `❤️${likes}`;
-        likeButton.className = `mt-2 mb-2 px-2 py-1 rounded-md border-2 ${userHasLikedThisPost ?  "bg-red-500" : "bg-white"}`;
+        likeButton.className = `mt-2 mb-2 px-2 py-1 rounded-md ${userHasLikedThisPost ?  "bg-transparent" : "bg-transparent"}`;
+        likeButton.setAttribute("aria-label", `Like this post. ${likes} likes.`);
+        likeButton.setAttribute("aria-pressed", String(userHasLikedThisPost));
       } catch (error) {
         alert("Error reacting to post", + error.message);
         console.error(error);
@@ -270,17 +288,21 @@ function renderPosts(postsToRender = userPosts) {
       interactiveButtonContainer.className = "flex gap-2 mt-4 mb-4";
 
       const editButton = document.createElement("button");
+      editButton.type = "button";
       editButton.textContent = "EDIT POST";
       editButton.id = "edit-button";
-      editButton.className = "px-2 py-1 bg-yellow-500 text-white rounded-xl";
+      editButton.className = "px-2 py-1 bg-yellow-500 rounded-xl border-2 border-black";
+      editButton.setAttribute("aria-label", `Edit post titled ${post.title || "Quick Post"}`);
       editButton.addEventListener("click", () =>
         handleEdit(post, postContent, articleElementForPost)
       );
       
       const deleteButton = document.createElement("button");
+      deleteButton.type = "button";
       deleteButton.textContent = "DELETE POST";
       deleteButton.id = "delete-button";
-      deleteButton.className = "px-2 py-1 bg-red-500 text-white rounded-xl";
+      deleteButton.className = "px-2 py-1 bg-red-500 text-white rounded-xl border-2 border-black";
+      deleteButton.setAttribute("aria-label", `Delete post titled ${post.title || "Quick Post"}`);
       deleteButton.addEventListener("click", () => deletePost(post.id));
       
       interactiveButtonContainer.appendChild(editButton);
@@ -297,6 +319,8 @@ function renderPosts(postsToRender = userPosts) {
     displayArea.appendChild(articleElementForPost);
     
     const commentSection = document.createElement("div");
+    commentSection.setAttribute("role", "region");
+    commentSection.setAttribute("aria-label", "Comments section");
     articleElementForPost.appendChild(commentSection);
     renderComments(post, commentSection);
   });
@@ -305,8 +329,12 @@ function renderPosts(postsToRender = userPosts) {
 newPostButton.addEventListener("click", () => {
   if (postFormContainer.classList.contains("hidden")) {
     postFormContainer.classList.remove("hidden");
+    postFormContainer.setAttribute("aria-hidden", "false");
+    newPostButton.setAttribute("aria-expanded", "true");
   } else {
     postFormContainer.classList.add("hidden");
+    postFormContainer.setAttribute("aria-hidden", "true");
+    newPostButton.setAttribute("aria-expanded", "false");
   }
 });
 
@@ -316,29 +344,36 @@ async function renderComments(post, container){
 
   const commentList = document.createElement("div");
   commentList.className = "mt-2";
+  commentList.setAttribute("role", "list");
 
   if(post.comments?.length > 0){
     post.comments.forEach((comment) => {
       const commentItem = document.createElement("p");
       commentItem.textContent = `${comment.author?.name || comment.owner} : ${comment.body}`;
       commentItem.className = "border-b py-1"
+      commentItem.setAttribute("role", "listitem");
       commentList.appendChild(commentItem);
     });
   } else {
     const noComment = document.createElement("p");
     noComment.textContent = "No comments yet";
     noComment.className = "border-b py-1";
+    noComment.setAttribute("aria-live", "polite");
     commentList.appendChild(noComment);
   }
 
   const commentInput = document.createElement("input");
   commentInput.type = "text";
+  commentInput.id = `comment-input-${post.id}`;
   commentInput.placeholder = "Add a new comment";
-  commentInput.className = "px-2 py-1 ml-2 rounded"
+  commentInput.className = "px-2 py-1 ml-2 rounded border-2 rounded-xl bg-gray-100 border-black mt-4 placeholder:text-gray-600 w-[50%] text-center ";
+  commentInput.setAttribute("aria-label", "Add a comment");
 
   const submitButton = document.createElement("button");
+  submitButton.type = "button";
   submitButton.textContent = "COMMENT";
-  submitButton.className = "px-2 py-1 ml-2 rounded";
+  submitButton.className = "px-2 py-1 ml-2 rounded-lg bg-[#E94E77] font-semibold border-2 hover:bg-[#e293a8] cursor-pointer";
+  submitButton.setAttribute("aria-label", "Submit comment");
 
   submitButton.addEventListener("click", async () => {
     let commentText = commentInput.value.trim();

@@ -35,21 +35,38 @@ async function fetchPost() {
 function renderPost(post) {
     const displayApp = document.getElementById("display-app");
     displayApp.textContent = "";
+    displayApp.setAttribute("role", "region");
+    displayApp.setAttribute("aria-live", "polite");
+    displayApp.setAttribute("aria-label", "Post content");
 
     const article = document.createElement("article");
-    article.className = "bg-white p-4 shadow rounded mb-4";
+    article.className = "p-4 m-8 rounded-lg bg-[#FFE9CC] shadow-xl";
+    article.setAttribute("role", "article");
 
     const authorDiv = document.createElement("div");
     authorDiv.className = "flex items-center gap-2 mb-4";
+    authorDiv.setAttribute("role", "group");
+    authorDiv.setAttribute("aria-label", "Post author information");
 
     const avatarImg = document.createElement("img");
     avatarImg.src =
         post.author?.avatar?.url || "https://i.imghippo.com/files/ZyN1996XVE.png";
-    avatarImg.alt = post.author?.name;
-    avatarImg.className = "w-10 h-10 rounded-full cursor-pointer";
+    avatarImg.alt = `Profile picture of ${post.author?.name || "the author"}`;
+    avatarImg.className = "w-16 h-16 rounded-full cursor-pointer";
+    avatarImg.setAttribute("role", "link");
+    avatarImg.setAttribute("aria-label", `View profile of ${post.author?.name || "this author"}`);
+    avatarImg.tabIndex = 0;
 
-    avatarImg.addEventListener("click", () => {
+    const authorNavigate = () => {
         location.href = `/HTML/user-page.html?name=${post.author?.name}`;
+    };
+
+    avatarImg.addEventListener("click", authorNavigate);
+    avatarImg.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            authorNavigate();
+        }
     });
 
     const name = document.createElement("h4");
@@ -60,17 +77,23 @@ function renderPost(post) {
     authorDiv.appendChild(name);
 
     const title = document.createElement("h5");
+    title.id = "post-title";
     title.textContent = post.title || "Untitled";
     title.className = "font-bold text-xl mb-2";
 
     const body = document.createElement("p");
     body.textContent = post.body;
     body.className = "mb-2";
+    body.setAttribute("aria-label", "Post body");
+
+    article.setAttribute("aria-labelledby", "post-title");
 
     let likes = post._count.reactions || 0;
     const likeButton = document.createElement("button");
+    likeButton.type = "button";
     likeButton.textContent = `❤️ ${likes}`;
-    likeButton.className = "px-2 py-1 border rounded-full mb-4";
+    likeButton.className = "px-2 py-1 rounded-full mb-4";
+    likeButton.setAttribute("aria-label", `Like this post, currently ${likes} likes`);
 
     likeButton.addEventListener("click", async () => {
         try {
@@ -98,10 +121,13 @@ function renderPost(post) {
 
     const commentContainer = document.createElement("div");
     commentContainer.className = "mt-4";
+    commentContainer.setAttribute("role", "region");
+    commentContainer.setAttribute("aria-label", "Comments section");
 
     if (post.comments.length === 0) {
         const noComment = document.createElement("p");
         noComment.textContent = "No comments yet";
+        noComment.setAttribute("aria-live", "polite");
         commentContainer.appendChild(noComment);
     } else {
         post.comments.forEach((comment) => {
@@ -109,21 +135,40 @@ function renderPost(post) {
             commentParagraph.textContent = `${comment.author?.name || comment.owner
                 }: ${comment.body}`;
             commentParagraph.className = "border-b py-1";
+            commentParagraph.setAttribute("aria-label", `${comment.author?.name || comment.owner} commented: ${comment.body}`);
             commentContainer.appendChild(commentParagraph);
         });
     }
     const inputContainer = document.createElement("div");
-    inputContainer.className = "flex gap-2 mt-2";
+    inputContainer.className = "flex flex-row";
 
     const commentInputField = document.createElement("input");
     commentInputField.type = "text";
+    commentInputField.id = "comment-input";
     commentInputField.placeholder = "Add a comment";
-    commentInputField.className = "px-2 py-1 border rounded bg-gray-200";
+    commentInputField.className = "p-2 rounded border-2 rounded-xl bg-gray-100 border-black mt-4 placeholder:text-gray-600 w-[50%] text-center h-12";
+    commentInputField.setAttribute("aria-label", "Add a comment");
+    commentInputField.setAttribute("aria-describedby", "comment-help");
+
+    const commentHelp = document.createElement("span");
+    commentHelp.id = "comment-help";
+    commentHelp.style.position = "absolute";
+    commentHelp.style.width = "1px";
+    commentHelp.style.height = "1px";
+    commentHelp.style.padding = "0";
+    commentHelp.style.margin = "-1px";
+    commentHelp.style.overflow = "hidden";
+    commentHelp.style.clip = "rect(0,0,0,0)";
+    commentHelp.style.whiteSpace = "nowrap";
+    commentHelp.style.border = "0";
+    commentHelp.textContent = "Press the comment button to submit your comment.";
 
     const submitCommentButton = document.createElement("button");
+    submitCommentButton.type = "button";
     submitCommentButton.textContent = "COMMENT";
     submitCommentButton.className =
-        "bg-[#B56F76] border-2 border-black text-black font-montserrat font-bold rounded-md px-2 py-1 mt-4 hover:bg-[#b56472] cursor-pointer";
+        "p-2 ml-2 mt-4 rounded-lg bg-[#E94E77] font-semibold border-2 h-12 hover:bg-[#e293a8] cursor-pointer";
+    submitCommentButton.setAttribute("aria-label", "Submit comment");
 
     submitCommentButton.addEventListener("click", async () => {
         const commentText = commentInputField.value.trim();
@@ -150,6 +195,7 @@ function renderPost(post) {
         }
     });
     inputContainer.appendChild(commentInputField);
+    inputContainer.appendChild(commentHelp);
     inputContainer.appendChild(submitCommentButton);
 
     article.appendChild(authorDiv);
